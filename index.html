@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+    <link rel="stylesheet" href="js/ol3/ol.css" type="text/css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/ol3-sidebar.css" />
+    <link rel="stylesheet" href="index.css" type="text/css">
+    <title>OpenLayers 3 开始</title>
+    <style>
+       #popup{
+            width: 200px;
+       }
+
+       body {
+           padding: 0;
+           margin: 0;
+           overflow: hidden;
+       }
+       html, body, #map {
+           height: 100%;
+           font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+       }
+
+       .lorem {
+           font-style: italic;
+           color: #AAA;
+       }
+
+        #location{
+            position: absolute;
+            bottom: 10px;
+            width: 200px;
+            height: 20px;
+            color: #ff0000;
+            right: 1%;
+            font-weight: bold;
+            z-index: 99;
+        }
+
+        #scaleline{
+            position: absolute;
+            bottom: 25px;
+            width: 150px;
+            right: 1%;
+        }
+    </style>
+</head>
+<body>
+<div id="sidebar" class="sidebar collapsed">
+    <!-- Nav tabs -->
+    <div class="sidebar-tabs">
+        <ul role="tablist">
+            <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+            <li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
+            <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>
+        </ul>
+
+        <ul role="tablist">
+            <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
+        </ul>
+    </div>
+
+    <!-- Tab panes -->
+    <div class="sidebar-content">
+        <div class="sidebar-pane" id="home">
+            <select id="type">
+                <option value="Point">Point</option>
+                <option value="LineString">LineString</option>
+                <option value="Polygon">Polygon</option>
+                <option value="Circle">Circle</option>
+                <option value="Square">Square</option>
+                <option value="Box">Box</option>
+                <option value="None">None</option>
+            </select>
+            <button id="draw">开始绘图</button>
+            <button id="getDrawFeature">获取绘制要素</button>
+            <button id="deleteFeature">删除所选feature</button>
+            <button id="addFeature">添加feature</button>
+            <button id="getCircle">获取Circle数据</button>
+        </div>
+
+        <div class="sidebar-pane" id="profile">
+            <h1 class="sidebar-header">Profile<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+        </div>
+
+        <div class="sidebar-pane" id="messages">
+            <h1 class="sidebar-header">Messages<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+        </div>
+
+        <div class="sidebar-pane" id="settings">
+            <h1 class="sidebar-header">Settings<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+        </div>
+    </div>
+</div>
+
+<div id="map" class="sidebar-map"></div>
+<div id="location"></div>
+<div id="scaleline"></div>
+<script data-main="js/main" src="js/require.js"></script>
+</body>
+</html>
