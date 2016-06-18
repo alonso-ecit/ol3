@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-<div id="map" class="map"><div id="popup"></div></div>
+<div id="map" class="map"></div>
 <script>
     var iconFeature = new ol.Feature({
         geometry: new ol.geom.Point([0, 0]),
@@ -39,12 +39,17 @@
         features: [iconFeature]
     });
 
+    /*
+    * 对vectorlayer设置图层样式,当feature的Geometry为Point类型和非Point类型
+    * 注意此处非Point类型时返回ol.style.Style类型的数组,一个用来标注Icon,另一个用来标注
+    * 面的填充色和边界等
+    * */
     var vectorLayer = new ol.layer.Vector({
         source: vectorSource,
         style: function(feature){
             if(feature.getGeometry().getType() == 'Point'){
                 return new ol.style.Style({
-                    image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+                    image: new ol.style.Icon( ({
                         anchor: [0.5, 46],
                         anchorXUnits: 'fraction',
                         anchorYUnits: 'pixels',
@@ -59,8 +64,8 @@
                 })
             } else {
                 return [
-                    new ol.style.Style({
-                    image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+                    new ol.style.Style({//style中image和geometry要成对出现,image设置了图形样式,geometry定义了image的位置
+                    image: new ol.style.Icon(({
                         anchorXUnits: 'fraction',
                         anchorYUnits: 'pixels',
                         src: './images/4.png'
@@ -121,45 +126,6 @@
             center: [0, 0],
             zoom: 3
         })
-    });
-
-    var element = document.getElementById('popup');
-
-    var popup = new ol.Overlay({
-        element: element,
-        positioning: 'bottom-center',
-        stopEvent: false
-    });
-    map.addOverlay(popup);
-
-    // display popup on click
-    map.on('click', function(evt) {
-        var feature = map.forEachFeatureAtPixel(evt.pixel,
-                function(feature) {
-                    return feature;
-                });
-        if (feature) {
-            popup.setPosition(evt.coordinate);
-            $(element).popover({
-                'placement': 'top',
-                'html': true,
-                'content': feature.get('name')
-            });
-            $(element).popover('show');
-        } else {
-            $(element).popover('destroy');
-        }
-    });
-
-    // change mouse cursor when over marker
-    map.on('pointermove', function(e) {
-        if (e.dragging) {
-            $(element).popover('destroy');
-            return;
-        }
-        var pixel = map.getEventPixel(e.originalEvent);
-        var hit = map.hasFeatureAtPixel(pixel);
-        map.getTarget().style.cursor = hit ? 'pointer' : '';
     });
 </script>
 </body>
